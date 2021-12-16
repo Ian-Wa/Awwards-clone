@@ -25,7 +25,6 @@ def index(request):
 
 
 def signup(request):
-    print('here')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -44,7 +43,7 @@ def signup(request):
             return redirect('login')
     else:
         form = SignUpForm()
-    return render(request, 'registration/registration_form.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 
 @login_required(login_url='/accounts/login/')
