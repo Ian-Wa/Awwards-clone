@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+import django_registration
 
 
 # Create your views here.
@@ -29,13 +30,13 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.contrib.auth import views 
 from django.urls import path, re_path
+from django_registration.backends.one_step.views import RegistrationView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('award.urls')),  
     re_path(r'accounts/',include('django.contrib.auth.urls')),
-    path(r'logout/', views.LogoutView.as_view(), {"next_page": 'accounts/signup'}), 
-
-  
+    re_path(r'logout/', views.LogoutView.as_view(), {"next_page": 'accounts/signup'}), 
+    re_path(r'accounts/register', RegistrationView.as_view(success_url='/email'),name='django_registration_register'),
 ]
