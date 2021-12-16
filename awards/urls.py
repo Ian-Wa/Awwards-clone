@@ -28,13 +28,13 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.contrib.auth import views 
-from django.urls import path
+from django.urls import path, re_path
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('award.urls')),  
-    
+    re_path(r'accounts/',include('django.contrib.auth.urls')),
     path(r'logout/', views.LogoutView.as_view(), {"next_page": 'accounts/signup'}), 
 
   
