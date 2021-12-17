@@ -11,6 +11,7 @@ urlpatterns = [
     path('update/<id>', views.update_profile, name='update_profile'),
     path('upload/',views.post_project,name='post_project'),
     path('project_info/(?P<id>\d+)', views.view_project, name='viewProject'),
+    path('email/', views.welcome_mail, name='email'),
 
     #api endpoints
     path('api/v1/profile',views.ProfileList.as_view(),name='profileEndpoint'),

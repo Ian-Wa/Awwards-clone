@@ -1,3 +1,4 @@
+from award import email
 from award.models import Profile, Project
 from django.contrib.auth.models import User
 from award.forms import ProjectForm, RatingsForm, SignUpForm, UpdateProfileForm, UpdateUserForm
@@ -7,6 +8,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
+from .email import send_welcome_email
 
 # api urls
 
@@ -87,6 +89,16 @@ def project(request, id):
     project = Project.objects.get(id=id)
     reviews = Rates.objects.all()
     return render(request, 'viewProject.html', {"project": project, "reviews": reviews})
+
+
+@login_required
+def welcome_mail(request):
+    user = request.user
+    email = user.email
+    name = user.username
+    send_welcome_email(name, email)
+    return redirect('index')
+
 
 
 @login_required(login_url='/accounts/login')
